@@ -110,12 +110,12 @@ MaxMatrix m(data, load, clock, maxInUse); // define Library
 
 byte buffer[10];
 
-char string1[] = " Hello Boris!!      ";  // Scrolling Text
-
+char string1[] = "Lorem ipsum dolor sit amet";
 
 void setup(){
   m.init(); // module MAX7219
   m.setIntensity(5); // LED Intensity 0-15
+  Serial.begin(9600);
 }
 
 void loop(){
@@ -123,7 +123,7 @@ void loop(){
   byte c;
   delay(100);
   m.shiftLeft(false, true);
-  printStringWithShift(string1, 100);  // Send scrolling Text
+  printStringWithShift(string1, 150);  // Send scrolling Text
 
 }
 
@@ -132,7 +132,7 @@ void printCharWithShift(char c, int shift_speed){
   if (c < 32) return;
   c -= 32;
   memcpy_P(buffer, CH + 7*c, 7);
-  m.writeSprite(maxInUse*8, 0, buffer);
+  m.writeSprite(maxInUse*8, 1, buffer);
   m.setColumn(maxInUse*8 + buffer[0], 0);
 
   for (int i = 0; i < buffer[0]+1; i++)

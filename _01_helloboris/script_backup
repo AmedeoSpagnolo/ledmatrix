@@ -1,0 +1,59 @@
+#include "LedControl.h"
+
+
+/*
+pin 2 is connected to the DataIn
+pin 4 is connected to the CLK
+pin 3 is connected to LOAD
+*/
+int pinDataIn = 5;
+int pinLOAD = 6;
+int pinCLK = 7;
+int blocksCount = 4;
+LedControl lc=LedControl(pinDataIn,pinCLK,pinLOAD,blocksCount);
+
+const int blk0 = 0;
+const int blk1 = 1;
+const int blk2 = 2;
+const int blk3 = 3;
+
+void dotUp(int block, int row, int column) {
+  byte rowDots[8] = {
+    B00000001,B00000010,B00000100,B00001000,B00010000,B00100000,B01000000,B10000000
+  };
+  lc.setRow(block, column, rowDots[row]);
+}
+
+void setup() {
+  /*The MAX72XX is in power-saving mode on startup*/
+  lc.shutdown(blk0,false);
+  lc.shutdown(blk1,false);
+  lc.shutdown(blk2,false);
+  lc.shutdown(blk3,false);
+
+  /* Set the brightness to max values */
+  lc.setIntensity(blk0,8);
+  lc.setIntensity(blk1,8);
+  lc.setIntensity(blk2,8);
+  lc.setIntensity(blk3,8);
+
+  /* and clear the display */
+  lc.clearDisplay(blk0);
+  lc.clearDisplay(blk1);
+  lc.clearDisplay(blk2);
+  lc.clearDisplay(blk3);
+
+  delay(300);
+}
+
+void loop() {
+    for (int i = 0; i < 8; i++) {
+    dotUp(0, 0, i);
+    dotUp(0, 1, 8-i);
+    dotUp(0, 2, i);
+    dotUp(0, 3, 8-i);
+    delay(50);
+    lc.clearDisplay(blk0);    
+  }
+}
+
