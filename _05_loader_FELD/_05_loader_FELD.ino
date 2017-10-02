@@ -21,6 +21,8 @@
 
 #define DEBUG 1
 
+int _SPEED;
+
 MD_Parola P = MD_Parola(DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
 
 #define ARRAY_SIZE(x)  (sizeof(x)/sizeof(x[0]))
@@ -35,7 +37,7 @@ typedef struct
 } sCatalog;
 
 char* catalog[] = {
-  "_man",
+  "man",
   "design",
   "branding",
   "advertising",
@@ -53,20 +55,24 @@ void setup(void)
 {
   P.begin();
   P.setInvert(false);
+//  P.setZone(ZONE_LEFT,0,0);
+//  P.setZone(ZONE_RIGHT,1,3);
 
   #ifdef DEBUG
     Serial.begin(9600);
   #endif
 
+  _SPEED = P.getSpeed() * 2;
 }
 
 void loop(void) {
 
   for (uint8_t i=0; i<ARRAY_SIZE(catalog); i++) {
     Serial.println(catalog[i]);
-    P.displayText(catalog[i], PA_LEFT, P.getSpeed()*2, 1000, PA_SCROLL_DOWN, PA_SCROLL_DOWN);
+    P.displayText(catalog[i], PA_LEFT, _SPEED, 1000, PA_SCROLL_DOWN, PA_SCROLL_DOWN);
+    //P.displayZoneText(ZONE_LEFT, catalog[i], PA_LEFT, _SPEED, 1000, PA_SCROLL_DOWN, PA_SCROLL_DOWN);
     while (!P.displayAnimate()); // animates and returns true when an animation is completed
-    delay(1000);
+    delay(300);
   }
   
 }
