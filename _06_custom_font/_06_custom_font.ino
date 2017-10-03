@@ -22,6 +22,8 @@
 #define SPEED_TIME  25
 #define PAUSE_TIME  1000
 
+uint8_t degC[] = { 2, 171, 84}; // Deg C
+
 MD_Parola P = MD_Parola(DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
 
 void setup(void)
@@ -36,8 +38,9 @@ void setup(void)
     Serial.begin(9600);
   #endif
 
-  P.displayZoneText(ZONE_RIGHT, "r", PA_LEFT, 0, 0, PA_PRINT, PA_NO_EFFECT);
-  P.displayZoneText(ZONE_LEFT, "l", PA_LEFT, 0, 0, PA_PRINT, PA_NO_EFFECT);
+  P.displayZoneText(ZONE_RIGHT, "c", PA_LEFT, 0, 0, PA_PRINT, PA_NO_EFFECT);
+  P.addChar('c', degC);
+  P.displayZoneText(ZONE_LEFT, "c", PA_LEFT, 0, 0, PA_PRINT, PA_NO_EFFECT);
 }
 
 void loop(void) {
