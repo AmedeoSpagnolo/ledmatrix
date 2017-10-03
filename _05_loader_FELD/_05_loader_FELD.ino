@@ -19,7 +19,8 @@
 #define ZONE_RIGHT 1
 #define ZONE_LEFT 0
 
-#define DEBUG 1
+#define SPEED_TIME  25
+#define PAUSE_TIME  1000
 
 int _SPEED;
 
@@ -53,26 +54,31 @@ char* catalog[] = {
 
 void setup(void)
 {
-  P.begin();
+  P.begin(2);
   P.setInvert(false);
-//  P.setZone(ZONE_LEFT,0,0);
-//  P.setZone(ZONE_RIGHT,1,3);
+  P.setZone(ZONE_LEFT,0,0);
+  P.setZone(ZONE_RIGHT,1,3);
 
   #ifdef DEBUG
     Serial.begin(9600);
   #endif
 
-  _SPEED = P.getSpeed() * 2;
+  P.displayZoneText(ZONE_RIGHT, "Fe", PA_LEFT, 0, 0, PA_PRINT, PA_NO_EFFECT);
+  P.displayZoneText(ZONE_LEFT, "q", PA_CENTER, 0, 0, PA_PRINT, PA_NO_EFFECT);
 }
 
 void loop(void) {
 
-  for (uint8_t i=0; i<ARRAY_SIZE(catalog); i++) {
-    Serial.println(catalog[i]);
-    P.displayText(catalog[i], PA_LEFT, _SPEED, 1000, PA_SCROLL_DOWN, PA_SCROLL_DOWN);
-    //P.displayZoneText(ZONE_LEFT, catalog[i], PA_LEFT, _SPEED, 1000, PA_SCROLL_DOWN, PA_SCROLL_DOWN);
-    while (!P.displayAnimate()); // animates and returns true when an animation is completed
-    delay(300);
-  }
-  
+  while (!P.getZoneStatus(ZONE_RIGHT))
+    P.displayAnimate();
+
+
+  // for (uint8_t i=0; i<ARRAY_SIZE(catalog); i++) {
+  //   Serial.println(catalog[i]);
+  //   P.displayText(catalog[i], PA_LEFT, _SPEED, 1000, PA_SCROLL_DOWN, PA_SCROLL_DOWN);
+  //   //P.displayZoneText(ZONE_LEFT, catalog[i], PA_LEFT, _SPEED, 1000, PA_SCROLL_DOWN, PA_SCROLL_DOWN);
+  //   while (!P.displayAnimate()); // animates and returns true when an animation is completed
+  //   delay(300);
+  // }
+
 }
