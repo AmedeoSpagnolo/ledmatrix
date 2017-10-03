@@ -1,0 +1,42 @@
+Arguments: 
+  /Users/amedeospagnolo/.nvm/versions/node/v6.11.0/bin/node /usr/local/Cellar/yarn/1.0.2/libexec/bin/yarn.js add jquery
+
+PATH: 
+  /Users/amedeospagnolo/.nvm/versions/node/v6.11.0/bin:/Users/amedeospagnolo/.rbenv/shims:/Users/amedeospagnolo/.rbenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/amedeospagnolo/bin/scripts:/Users/amedeospagnolo/bin/scripts/security:/Users/amedeospagnolo/DATA/GIT/coolstuf/metasploit-framework
+
+Yarn version: 
+  1.0.2
+
+Node version: 
+  6.11.0
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+    "name": "led_font_generator",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.html",
+    "repository": {
+      "url": "",
+      "type": "git"
+    },
+    "author": "Amedeo Spagnolo",
+    "license": "BSD-2-Clause",
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  SyntaxError: /Users/amedeospagnolo/DATA/GIT/ME/borisled/char_converter/package.json: Unexpected token } in JSON at position 217
+      at Object.parse (native)
+      at /usr/local/Cellar/yarn/1.0.2/libexec/lib/cli.js:797:57
+      at next (native)
+      at step (/usr/local/Cellar/yarn/1.0.2/libexec/lib/cli.js:92:30)
+      at /usr/local/Cellar/yarn/1.0.2/libexec/lib/cli.js:103:13
