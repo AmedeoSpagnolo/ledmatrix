@@ -63,8 +63,7 @@ void setup(void)
     Serial.begin(9600);
   #endif
 
-  P.displayZoneText(ZONE_RIGHT, "Fe", PA_LEFT, 0, 0, PA_PRINT, PA_NO_EFFECT);
-  P.displayZoneText(ZONE_LEFT, "q", PA_CENTER, 0, 0, PA_PRINT, PA_NO_EFFECT);
+  P.displayZoneText(ZONE_RIGHT, "Feld", PA_CENTER, 0, 0, PA_PRINT, PA_NO_EFFECT);
 }
 
 void loop(void) {
@@ -73,12 +72,11 @@ void loop(void) {
     P.displayAnimate();
 
 
-  // for (uint8_t i=0; i<ARRAY_SIZE(catalog); i++) {
-  //   Serial.println(catalog[i]);
-  //   P.displayText(catalog[i], PA_LEFT, _SPEED, 1000, PA_SCROLL_DOWN, PA_SCROLL_DOWN);
-  //   //P.displayZoneText(ZONE_LEFT, catalog[i], PA_LEFT, _SPEED, 1000, PA_SCROLL_DOWN, PA_SCROLL_DOWN);
-  //   while (!P.displayAnimate()); // animates and returns true when an animation is completed
-  //   delay(300);
-  // }
+ for (uint8_t i=0; i<ARRAY_SIZE(catalog); i++) {
+   P.displayZoneText(ZONE_LEFT, catalog[i], PA_LEFT, SPEED_TIME, PAUSE_TIME, PA_SCROLL_DOWN, PA_SCROLL_DOWN);
+   while (!P.getZoneStatus(ZONE_LEFT))
+      P.displayAnimate(); // animates and returns true when an animation is completed
+   delay(300);
+ }
 
 }
