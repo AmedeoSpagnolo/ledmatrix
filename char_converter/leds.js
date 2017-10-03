@@ -1,6 +1,10 @@
 var row = 16
 var column = 24
-var matrix = new Array(column).fill(new Array(row).fill(0));
+var matrix = Array(column).fill(Array(row))
+// matrix[0][1] = 1
+// console.log(matrix[0]);
+// console.log(matrix[1]);
+
 
 ;$( document ).ready(function() {
   $("svg").on("click", "circle", function(){
