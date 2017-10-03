@@ -19,29 +19,30 @@
 #define ZONE_RIGHT 1
 #define ZONE_LEFT 0
 
-#define DEBUG 1
+#define SPEED_TIME  25
+#define PAUSE_TIME  1000
 
 MD_Parola P = MD_Parola(DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
 
-void setup(void){
-
-  #ifdef DEBUG
-    Serial.begin(9600);
-    Serial.println("start");
-  #endif
-
+void setup(void)
+{
   P.begin(2);
   P.setInvert(false);
 
   P.setZone(ZONE_LEFT,0,1);
   P.setZone(ZONE_RIGHT,2,3);
 
-  P.displayZoneText(ZONE_RIGHT, "R", PA_LEFT, 0, 0, PA_PRINT, PA_NO_EFFECT);
-  P.displayZoneText(ZONE_LEFT, "L", PA_LEFT, 0, 0, PA_PRINT, PA_NO_EFFECT);
+  #ifdef DEBUG
+    Serial.begin(9600);
+  #endif
+
+  P.displayZoneText(ZONE_RIGHT, "r", PA_LEFT, 0, 0, PA_PRINT, PA_NO_EFFECT);
+  P.displayZoneText(ZONE_LEFT, "l", PA_LEFT, 0, 0, PA_PRINT, PA_NO_EFFECT);
 }
 
-void loop(void){
-  Serial.println("loop");
-  // P.displayAnimate();
-  delay(300);
+void loop(void) {
+
+  while (!P.getZoneStatus(ZONE_RIGHT))
+    P.displayAnimate();
+
 }
