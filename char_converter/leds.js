@@ -29,7 +29,7 @@ function toggleled(element){
 function get_value_from_matrix(){
 
   matrix[0][15] = 1
-  matrix[5][13] = 1
+  matrix[3][13] = 1
 
   // convert binary every column
   var temp = []
@@ -38,7 +38,7 @@ function get_value_from_matrix(){
     temp.push(parseInt(bin, 2))
   })
   var arr = delete_empty_column(temp)
-  return "uint8_t newChar[] = { " + arr.join(", ") + " } // rename newChar"
+  return "uint8_t newChar[] = {  "+ arr.length+", " + arr.join(", ") + " } // rename newChar"
 }
 
 function update_matrix(){
