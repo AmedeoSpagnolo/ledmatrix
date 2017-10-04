@@ -1553,7 +1553,7 @@ public:
   * Invokes an animation using PA_PRINT with all other settings (alignment,
   * speed, etc) taken from current defaults.
   * This method also invokes the animation for the print and returns when that has
-  * finished, so it blocks while the printing is happening, which should be at least 
+  * finished, so it blocks while the printing is happening, which should be at least
   * one iteration of the wait loop.
   *
   * \param str	Pointer to the nul terminated char array.

@@ -1,0 +1,8 @@
+circle{
+  fill: #F1F2F2;
+  cursor: pointer;
+}
+
+circle.active{
+  fill: black!important;
+}

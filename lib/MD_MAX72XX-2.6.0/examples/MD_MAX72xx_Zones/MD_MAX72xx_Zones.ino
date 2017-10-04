@@ -10,7 +10,7 @@
 // Define the number of devices we have in the chain and the hardware interface
 // NOTE: These pin numbers will probably not work with your hardware and may 
 // need to be adapted
-#define	MAX_DEVICES		8	// 2, 4, 6, or 8 work best - see Z array
+#define	MAX_DEVICES		4	// 2, 4, 6, or 8 work best - see Z array
 
 #define	CLK_PIN		13  // or SCK
 #define	DATA_PIN	11  // or MOSI

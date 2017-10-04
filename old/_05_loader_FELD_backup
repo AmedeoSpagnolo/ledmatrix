@@ -1,0 +1,78 @@
+// Program to demonstrate the MD_Parola library
+//
+// Simplest program that does something useful - Hello World!
+//
+// NOTE: MD_MAX72xx library must be installed and configured for the LED
+// matrix type being used. Refer documentation included in the MD_MAX72xx
+// library or see this link:
+// https://majicdesigns.github.io/MD_MAX72XX/page_hardware.html
+//
+
+#include <MD_Parola.h>
+#include <MD_MAX72xx.h>
+#include <SPI.h>
+
+// Define the number of devices we have in the chain and the hardware interface
+// NOTE: These pin numbers will probably not work with your hardware and may
+// need to be adapted
+#define MAX_DEVICES 4
+#define CLK_PIN   13
+#define DATA_PIN  11
+#define CS_PIN    10
+
+#define ZONE_RIGHT  1
+#define ZONE_LEFT  0
+
+// Hardware SPI connection
+MD_Parola P = MD_Parola(CS_PIN, MAX_DEVICES);
+// Arbitrary output pins
+// MD_Parola P = MD_Parola(DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
+
+// Global data
+typedef struct
+{
+  textEffect_t  effect;   // text effect to display
+  char *        psz;      // text string nul terminated
+  uint16_t      speed;    // speed multiplier of library default
+  uint16_t      pause;    // pause multiplier for library default
+} sCatalog;
+
+sCatalog  catalog[] =
+{
+  { PA_SCROLL_DOWN, "a", 3, 2 },
+  { PA_SCROLL_DOWN, "b", 3, 2 },
+  { PA_SCROLL_DOWN, "c", 3, 2 },
+  { PA_SCROLL_DOWN, "d", 3, 2 },
+  { PA_SCROLL_DOWN, "e", 3, 2 }
+};
+
+void setup(void)
+{
+  Serial.begin(9600);
+  P.begin(2);
+  P.setZone(ZONE_LEFT,0,0);
+  P.setZone(ZONE_RIGHT,1,3);
+  
+  //P.displayZoneText(ZONE_RIGHT, "Feld", PA_CENTER, 0, 0, PA_PRINT, PA_NO_EFFECT);
+  
+  for (uint8_t i=0; i<ARRAY_SIZE(catalog); i++){
+    catalog[i].speed *= P.getSpeed();
+    catalog[i].pause *= 500;
+  }
+}
+
+void loop(void)
+{
+  P.displayAnimate();
+  
+  //P.displayZoneText(ZONE_RIGHT, "Feld", PA_CENTER, 0, 0, PA_PRINT, PA_NO_EFFECT);
+  
+  for (uint8_t i=0; i<ARRAY_SIZE(catalog); i++) {
+//    P.displayZoneText(ZONE_LEFT, catalog[i].psz, PA_LEFT, catalog[i].speed, 500, catalog[i].effect, catalog[i].effect);
+    Serial.write(catalog[i].psz);
+    P.displayZoneText(ZONE_LEFT, "a", PA_LEFT, 1500, 500, PA_PRINT, catalog[i].effect);
+    while (!P.displayAnimate()); // animates and returns true when an animation is completed
+
+    delay(catalog[i].pause);
+  }
+}
