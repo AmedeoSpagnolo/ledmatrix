@@ -10,6 +10,7 @@
   "author": "Amedeo Spagnolo",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "linear-scale": "^0.0.2"
   }
 }
