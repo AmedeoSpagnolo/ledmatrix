@@ -6,3 +6,7 @@ circle{
 circle.active{
   fill: black!important;
 }
+
+form{
+  margin: 1rem 0;
+}
