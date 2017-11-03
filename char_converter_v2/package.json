@@ -1,0 +1,16 @@
+{
+  "name": "led_font_generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "repository": {
+    "url": "",
+    "type": "git"
+  },
+  "author": "Amedeo Spagnolo",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "linear-scale": "^0.0.2"
+  }
+}
