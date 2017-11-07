@@ -22,6 +22,8 @@
 #define SPEED_TIME  25
 #define PAUSE_TIME  1000
 
+#define DEBUG true
+
 int _SPEED;
 
 MD_Parola P = MD_Parola(DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
@@ -51,6 +53,18 @@ char* catalog[] = {
   "web",
 };
 
+int catalog_length(char* item)
+{ 
+    int l = strlen(item);
+    int temp = 0;
+    for (uint8_t i=0; i<l; i++) {
+      char char_length = item[i-1];
+      Serial.println(char_length);
+//      Serial.print(getTextWidth("l"));
+       temp += 2;
+    }
+    return temp;
+}
 
 void setup(void)
 {
@@ -62,7 +76,7 @@ void setup(void)
   #ifdef DEBUG
     Serial.begin(9600);
   #endif
-
+  Serial.println("START");
   P.displayZoneText(ZONE_RIGHT, "Feld", PA_CENTER, 0, 0, PA_PRINT, PA_NO_EFFECT);
 }
 
@@ -71,8 +85,11 @@ void loop(void) {
   while (!P.getZoneStatus(ZONE_RIGHT))
     P.displayAnimate();
 
-
  for (uint8_t i=0; i<ARRAY_SIZE(catalog); i++) {
+   Serial.print(catalog[i]);
+   Serial.print(" - ");
+   Serial.println(catalog_length(catalog[i]));
+   //Serial.print(strlen(catalog[i]));
    P.displayZoneText(ZONE_LEFT, catalog[i], PA_LEFT, SPEED_TIME, PAUSE_TIME, PA_SCROLL_DOWN, PA_SCROLL_DOWN);
    while (!P.getZoneStatus(ZONE_LEFT))
       P.displayAnimate(); // animates and returns true when an animation is completed
