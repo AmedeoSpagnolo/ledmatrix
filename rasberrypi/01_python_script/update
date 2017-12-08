@@ -1,0 +1,4 @@
+#!/bin/bash
+IP=192.168.50.181
+echo "If you have problems, probably $IP is not your raspberryPi's IP"
+scp -i ~/.ssh/id_rsa ./script.py pi@$IP:~/bin
