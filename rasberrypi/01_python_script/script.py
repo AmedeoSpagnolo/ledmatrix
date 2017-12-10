@@ -3,9 +3,9 @@ from samplebase import SampleBase
 from rgbmatrix import graphics
 import time
 
-class SimpleSquare(SampleBase):
+class Feld(SampleBase):
     def __init__(self, *args, **kwargs):
-        super(SimpleSquare, self).__init__(*args, **kwargs)
+        super(Feld, self).__init__(*args, **kwargs)
 
     # SetPixel
     # canvas.SetPixel(x,y,r,g,b)
@@ -52,20 +52,6 @@ class SimpleSquare(SampleBase):
           "web"
         ]
 
-        loop_temp = [
-          "ma",
-          "d",
-          "b",
-          "adr",
-          "ty",
-          "p",
-          "ilr",
-          "ed4",
-          "v",
-          "pr",
-          "w"
-        ]
-
         count       = 0
         marginleft  = 2
         margintop   = 10
@@ -74,24 +60,42 @@ class SimpleSquare(SampleBase):
             return sum([font.CharacterWidth(ord(c)) for c in string])
 
         while True:
-            graphics.DrawText(canvas, font, marginleft, margintop, white, "FELD")
-            graphics.DrawText(canvas, font, marginleft + ll("FELD"), margintop, white, loop_temp[count])
-            graphics.DrawLine(canvas, marginleft + ll("FELD"), margintop + 1, marginleft + ll(loop_temp[count]+"FELD"), margintop + 1, white)
-            canvas.SetPixel(marginleft + ll(loop_temp[count]+"FELD"), margintop - 1,255,255,255)
-            time.sleep(1)
+            c = 0
+            steps = 20
+            _from   = marginleft + ll("FELD" + loop[(count - 1) + count / len(loop)])
+            _to   = marginleft + ll("FELD" + loop[count])
+            while c < steps:
+
+                # line and dot
+                if _from < _to:
+                    _step = _to - int((float(abs(_from - _to)) / steps) * (steps - c))
+                else:
+                    _step = _to + int((float(abs(_from - _to)) / steps) * (steps - c))
+                graphics.DrawLine(canvas, marginleft + ll("FELD"), margintop + 1, _step, margintop + 1, white)
+                canvas.SetPixel(_step, margintop - 1,255,255,255)
+
+                # feld
+                graphics.DrawText(canvas, font, marginleft, margintop, white, "FELD")
+
+                # man
+                y_man = margintop - int((float(5) / steps) * (steps - c))
+                graphics.DrawText(canvas, font, marginleft + ll("FELD"), y_man, white, loop[count])
+
+                c += 1
+                time.sleep(0.01)
+                canvas = self.matrix.SwapOnVSync(canvas)
+                canvas.Clear()
+
+            time.sleep(1.5)
 
             count += 1
-            count = count % len(loop_temp)
-
-            canvas = self.matrix.SwapOnVSync(canvas)
-            canvas.Clear()
-
+            count = count % len(loop)
 
 # Main function
 if __name__ == "__main__":
-    simple_square = SimpleSquare()
-    if (not simple_square.process()):
-        simple_square.print_help()
+    feldman = Feld()
+    if (not feldman.process()):
+        feldman.print_help()
 
-# due led matrix
-# animazione
+# font
+# connessione server
